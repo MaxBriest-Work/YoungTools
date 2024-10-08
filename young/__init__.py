@@ -3,3 +3,4 @@
 """
 
 from young.diagram import YoungDiagram
+from young.diagrams import YoungDiagrams
