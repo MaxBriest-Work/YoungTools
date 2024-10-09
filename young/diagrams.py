@@ -82,7 +82,6 @@ class YoungDiagrams(object):
             usual_descriptions = [
                 tuple(usual_description)
                 for usual_description in IntegerListsLex(
-                    max_part=self._width,
                     length=self._height,
                     ceiling=ceiling,
                     max_slope=0,
@@ -90,7 +89,7 @@ class YoungDiagrams(object):
             ]
             usual_descriptions.reverse()
             return (
-                YoungDiagram(self._width, self._height, usual_description)
+                YoungDiagram(self._height, self._width, usual_description)
                 for usual_description in usual_descriptions
             )
         else:

@@ -1,0 +1,16 @@
+LICENSE
+Makefile
+README.md
+setup.py
+lefschetz.egg-info/PKG-INFO
+lefschetz.egg-info/SOURCES.txt
+lefschetz.egg-info/dependency_links.txt
+lefschetz.egg-info/not-zip-safe
+lefschetz.egg-info/top_level.txt
+young/__init__.py
+young/diagram.py
+young/diagrams.py
+young/__pycache__/__init__.cpython-312.pyc
+young/__pycache__/diagram.cpython-312.pyc
+young/__pycache__/diagrams.cpython-312.pyc
+young/__pycache__/structure.cpython-312.pyc
