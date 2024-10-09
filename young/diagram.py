@@ -1,9 +1,10 @@
 from typing import Iterator
 
-from sage.misc.table import table
-from sage.rings.integer_ring import ZZ
 from sage.calculus.calculus import var
+from sage.misc.table import table
 from sage.rings.infinity import Infinity
+from sage.rings.integer_ring import ZZ
+
 
 class YoungDiagram(object):
 
@@ -255,9 +256,9 @@ class YoungDiagram(object):
             if current_object == first_object:
                 break
 
-    def diagonal(self) -> "Expression" :
+    def diagonal(self) -> "Expression":
         x = var("x")
-        return -1*self.slope()*x + self._height
+        return -1 * self.slope() * x + self._height
 
     def is_lower_triangular(self) -> bool:
         return self.complement().is_upper_triangular()
@@ -265,7 +266,8 @@ class YoungDiagram(object):
     def is_upper_triangular(self) -> bool:
         if 0 < self._height:
             stock = [
-                row_length <= self._width * (self._height - row_counter-1) / self._height
+                row_length
+                <= self._width * (self._height - row_counter - 1) / self._height
                 for row_counter, row_length in enumerate(self._usual_description)
             ]
             return not False in stock
@@ -276,19 +278,22 @@ class YoungDiagram(object):
         """
         The numerical characteristic l(lambda).
         """
-        return self.complement().length_from_the_upper_right_corner()        
+        return self.complement().length_from_the_upper_right_corner()
 
     def length_from_the_upper_right_corner_to_the_next_vertex_on_diagonal(self):
         """
         The numerical characteristic r(lambda).
         """
-        assert self.is_upper_triangular(), "The Young diagram `self` needs to be upper triangular."
+        assert (
+            self.is_upper_triangular()
+        ), "The Young diagram `self` needs to be upper triangular."
         diagonal = self.diagonal()
-        if 0 < self._height :
-            for y, x in enumerate(self._usual_description,start=1) :
-                if diagonal(x=x) == y : break
-            return y+self._width-x
-        else :
+        if 0 < self._height:
+            for y, x in enumerate(self._usual_description, start=1):
+                if diagonal(x=x) == y:
+                    break
+            return y + self._width - x
+        else:
             raise NotImplementedError()
 
     def orbit_length(self) -> int:
@@ -311,19 +316,24 @@ class YoungDiagram(object):
 
     def show(self) -> "Table":
         if 0 < self._height and 0 < self._width:
-            header = [ 
-                [ '' ] +
-                [ (len(str(self._width))-len(str(column_counter)))*' '+
-                  str(column_counter)
-                  for column_counter in range(1,self._width+1)
+            header = [
+                [""]
+                + [
+                    (len(str(self._width)) - len(str(column_counter))) * " "
+                    + str(column_counter)
+                    for column_counter in range(1, self._width + 1)
                 ]
             ]
             body = [
-                [str(row_counter)] + row_length * ["x"] + (self._width - row_length) * [" "]
-                for row_counter, row_length in enumerate(self._usual_description,start=1)
+                [str(row_counter)]
+                + row_length * ["x"]
+                + (self._width - row_length) * [" "]
+                for row_counter, row_length in enumerate(
+                    self._usual_description, start=1
+                )
             ]
             return table(
-                rows=header+body,
+                rows=header + body,
                 frame=True,
             )
         else:
@@ -333,9 +343,9 @@ class YoungDiagram(object):
         """
         The numerical characteristic s(lambda).
         """
-        if   0 < self._height and self._width == 0 :
+        if 0 < self._height and self._width == 0:
             return +Infinity
-        elif 0 < self._width  :
+        elif 0 < self._width:
             return self._height / self._width
         else:
             raise NotImplementedError()
